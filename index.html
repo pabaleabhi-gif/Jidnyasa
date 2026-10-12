@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Smile For Jidnyasa 🌸💛</title>
+    <style>
+        :root {
+            --primary-pink: #ffb7b2;
+            --soft-yellow: #ffdac1;
+            --mint-green: #e2f0cb;
+            --sky-blue: #b5ead7;
+            --lavender: #c7ceea;
+            --card-bg: rgba(255, 255, 255, 0.65);
+            --card-border: rgba(255, 255, 255, 0.8);
+            --text-color: #5d4a66;
+            --accent-pink: #ff6f91;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a1c4fd 100%);
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            color: var(--text-color);
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        header.hero {
+            text-align: center;
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--accent-pink);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.6);
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            color: #6b5b7b;
+            line-height: 1.5;
+        }
+
+        /* Doodles & Animated SVGs */
+        .doodle-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .doodle {
+            width: 90px;
+            height: 90px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .doodle:hover {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        /* SVG Animations */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
+        }
+
+        @keyframes tailWag {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(15deg); }
+        }
+
+        @keyframes spinSun {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animated-sun { animation: floatSlow 3s ease-in-out infinite; }
+        .sun-rays { transform-origin: center; animation: spinSun 20s linear infinite; }
+        .puppy-tail { transform-origin: bottom left; animation: tailWag 0.6s ease-in-out infinite; }
+
+        /* Buttons */
+        .btn {
+          background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Sunshine Note Dispenser */
+        .dispenser-section {
+            text-align: center;
+        }
+
+        .note-box {
+            margin-top: 20px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--accent-pink);
+            border: 2px dashed #ffb7b2;
+            transition: all 0.3s ease;
+        }
+
+        /* Pop the Sad Clouds Mini-Game */
+        .game-section h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #5d4a66;
+        }
+
+        .cloud-area {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            min-height: 120px;
+            padding: 10px;
+        }
+
+        .cloud {
+            width: 80px;
+            height: 50px;
+            background: #d6e4ff;
+            border-radius: 50px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: transform 0.2s ease, opacity 0.3s ease;
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: #d6e4ff;
+            border-radius: 50%;
+        }
+
+        .cloud::before { width: 35px; height: 35px; top: -15px; left: 12px; }
+        .cloud::after { width: 28px; height: 28px; top: -10px; right: 12px; }
+
+        .cloud.popped {
+            transform: scale(0);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Emergency Cozy Kit */
+        .cozy-kit h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .cozy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+        }
+
+        .cozy-item {
+            background: rgba(255,255,255,0.7);
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid white;
+        }
+
+        .cozy-item:hover {
+            background: white;
+            transform: translateY(-5px);
+        }
+
+        .cozy-item .icon { font-size: 2rem; margin-bottom: 5px; }
+        .cozy-item .label { font-size: 0.9rem; font-weight: bold; }
+
+        /* 3D Secret Flip Cards */
+        .cards-section h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            height: 140px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+          }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .flip-card-front {
+            background: linear-gradient(135deg, #e2f0cb 0%, #b5ead7 100%);
+            color: #5d4a66;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .flip-card-back {
+            background: white;
+            color: var(--accent-pink);
+            transform: rotateY(180deg);
+            font-size: 0.85rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Mood Meter Slider */
+        .mood-section {
+            text-align: center;
+        }
+
+        .slider-container {
+            margin: 20px 0;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 80%;
+            height: 12px;
+            border-radius: 10px;
+            background: #e2f0cb;
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--accent-pink);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .mood-emoji {
+            font-size: 3rem;
+            margin-top: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Modal Overlay */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 24px;
+            max-width: 400px;
+            width: 85%;
+            text-align: center;
+            position: relative;
+            animation: popIn 0.3s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close-btn:hover { color: #333; }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <header class="hero glass-card">
+            <h1>Hey Jidnyasa! 🌸</h1>
+            <p class="subtitle">I heard today was a bit heavy. Here is a little corner of the internet made just to bring a warm smile back to your face! 💛</p>
+
+            <!-- Cute Animated Doodles -->
+            <div class="doodle-container">
+                <!-- Smiling Sun -->
+                <svg class="doodle animated-sun" viewBox="0 0 100 100">
+                    <g class="sun-rays" stroke="#ffb7b2" stroke-width="4" stroke-linecap="round">
+                        <line x1="50" y1="10" x2="50" y2="20" />
+                        <line x1="50" y1="80" x2="50" y2="90" />
+                        <line x1="10" y1="50" x2="20" y2="50" />
+                        <line x1="80" y1="50" x2="90" y2="50" />
+                        <line x1="22" y1="22" x2="29" y2="29" />
+                        <line x1="71" y1="71" x2="78" y2="78" />
+                        <line x1="22" y1="78" x2="29" y2="71" />
+                        <line x1="71" y1="29" x2="78" y2="22" />
+                    </g>
+                    <circle cx="50" cy="50" r="25" fill="#ffdac1" />
+                    <!-- Face -->
+                    <circle cx="43" cy="45" r="3" fill="#5d4a66" />
+                    <circle cx="57" cy="45" r="3" fill="#5d4a66" />
+                    <path d="M 43 53 Q 50 60 57 53" fill="none" stroke="#5d4a66" stroke-width="2.5" stroke-linecap="round" />
+                    <circle cx="40" cy="50" r="3" fill="#ff758c" opacity="0.5" />
+                    <circle cx="60" cy="50" r="3" fill="#ff758c" opacity="0.5" />
+                </svg>
+
+                <!-- Wagging Dog -->
+                <svg class="doodle" viewBox="0 0 100 100">
+                    <path class="puppy-tail" d="M 30 60 Q 15 50 20 35" fill="none" stroke="#d6e4ff" stroke-width="6" stroke-linecap="round" />
+                    <ellipse cx="50" cy="60" rx="25" ry="20" fill="#e2f0cb" />
+                    <circle cx="65" cy="45" r="16" fill="#e2f0cb" />
+                    <!-- Ears -->
+                    <ellipse cx="58" cy="35" rx="5" ry="12" fill="#c7ceea" transform="rotate(-20 58 35)" />
+                    <ellipse cx="72" cy="35" rx="5" ry="12" fill="#c7ceea" transform="rotate(20 72 35)" />
+                    <!-- Face -->
+                    <circle cx="68" cy="43" r="2" fill="#5d4a66" />
+                    <circle cx="71" cy="47" r="3" fill="#ff758c" />
+                </svg>
+
+                <!-- Boba Tea Cup -->
+                <svg class="doodle" viewBox="0 0 100 100">
+                    <path d="M 35 35 L 40 80 Q 50 85 60 80 L 65 35 Z" fill="#c7ceea" />
+                    <!-- Straw -->
+                    <line x1="50" y1="15" x2="45" y2="40" stroke="#ff758c" stroke-width="5" stroke-linecap="round" />
+                    <!-- Lid -->
+                    <rect x="30" y="30" width="40" height="6" rx="3" fill="#5d4a66" />
+                    <!-- Boba Pearls -->
+                    <circle cx="45" cy="72" r="3" fill="#5d4a66" />
+                    <circle cx="52" cy="74" r="3" fill="#5d4a66" />
+                    <circle cx="55" cy="68" r="3" fill="#5d4a66" />
+                    <!-- Face -->
+                    <circle cx="45" cy="50" r="2" fill="#5d4a66" />
+                    <circle cx="55" cy="50" r="2" fill="#5d4a66" />
+                    <path d="M 48 55 Q 50 58 52 55" fill="none" stroke="#5d4a66" stroke-width="2" />
+                </svg>
+
+                <!-- Blooming Flower -->
+                <svg class="doodle" viewBox="0 0 100 100">
+                    <g fill="#ffb7b2">
+                        <circle cx="50" cy="35" r="12" />
+                        <circle cx="65" cy="50" r="12" />
+                        <circle cx="50" cy="65" r="12" />
+                        <circle cx="35" cy="50" r="12" />
+                    </g>
+                    <circle cx="50" cy="50" r="10" fill="#ffdac1" />
+                    <circle cx="47" cy="48" r="1.5" fill="#5d4a66" />
+                    <circle cx="53" cy="48" r="1.5" fill="#5d4a66" />
+                    <path d="M 48 52 Q 50 54 52 52" fill="none" stroke="#5d4a66" stroke-width="1.5" />
+                </svg>
+            </div>
+        </header>
+<!-- Sunshine Note Dispenser -->
+        <section class="glass-card dispenser-section">
+            <button class="btn" onclick="dispenseNote()">Click for Sunshine Note ☀️</button>
+            <div class="note-box" id="note-display">Tap the button above whenever you need a little comfort!</div>
+        </section>
+
+        <!-- Pop the Sad Clouds Mini-Game -->
+        <section class="glass-card game-section">
+            <h2>Pop the Sad Clouds ☁️💥</h2>
+            <p style="text-align: center; font-size: 0.95rem; margin-bottom: 15px; color: #777;">Tap on the clouds to pop away negative thoughts!</p>
+            <div class="cloud-area" id="cloud-container"></div>
+            <div style="text-align: center; margin-top: 10px;">
+                <button class="btn" style="padding: 8px 18px; font-size: 0.9rem;" onclick="resetClouds()">Reset Clouds 🌧️</button>
+            </div>
+        </section>
+
+        <!-- Emergency Cozy Kit -->
+        <section class="glass-card cozy-kit">
+            <h2>Emergency Cozy Kit 🧸</h2>
+            <div class="cozy-grid">
+                <div class="cozy-item" onclick="openCozyModal('Warm Tea 🍵', 'Imagine holding a warm mug of chamomile tea with two big marshmallows. Take a deep breath in... and let it out. Everything will be okay.')">
+                    <div class="icon">🍵</div>
+                    <div class="label">Warm Tea</div>
+                </div>
+                <div class="cozy-item" onclick="openCozyModal('Puppy Snuggles 🐶', 'A tiny golden retriever pup just trotted over, flopped right on your lap, and gave you a gentle nudge. Unconditional love incoming!')">
+                    <div class="icon">🐶</div>
+                    <div class="label">Puppy Hugs</div>
+                </div>
+                <div class="cozy-item" onclick="openCozyModal('Blanket Fort 🎪', 'Welcome inside the ultimate fairy-light blanket fort. It is warm, soft, and completely protected from any bad vibes outside.')">
+                    <div class="icon">🎪</div>
+                    <div class="label">Blanket Fort</div>
+                </div>
+                <div class="cozy-item" onclick="openCozyModal('Chocolates 🍫', 'Here is a box of soft luxury chocolates. Zero calories today because you deserve a sweet treat!')">
+                    <div class="icon">🍫</div>
+                    <div class="label">Sweet Treat</div>
+                </div>
+                <div class="cozy-item" onclick="openCozyModal('Quiet Sky 🌌', 'Look up at a peaceful starry night sky. The moon is watching over you, reminding you that tomorrow brings a fresh new sunrise.')">
+                    <div class="icon">🌌</div>
+                    <div class="label">Quiet Sky</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3D Secret Flip Cards -->
+        <section class="glass-card cards-section">
+            <h2>Reasons You're Awesome 🌟</h2>
+            <p style="text-align: center; font-size: 0.9rem; margin-bottom: 15px; color: #777;">(Tap a card to flip it over!)</p>
+            <div class="cards-grid">
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">Reason #1</div>
+                        <div class="flip-card-back">Your smile has a magical way of making everyone around you feel lighter. ✨</div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">Reason #2</div>
+                        <div class="flip-card-back">You are resilient and stronger than any tough moment you face. 💪</div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">Reason #3</div>
+                        <div class="flip-card-back">You bring genuine kindness and warmth into the world. 🌸</div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">Reason #4</div>
+                        <div class="flip-card-back">Even on quiet days, your presence makes a huge positive difference. 💛</div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">Reason #5</div>
+                        <div class="flip-card-back">You have great taste, wonderful energy, and a heart of gold. 💖</div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">Reason #6</div>
+                        <div class="flip-card-back">Bad days are just temporary chapters, but your brightness is permanent! 🌈</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mood Meter Slider -->
+        <section class="glass-card mood-section">
+            <h2>Charge Up Your Mood ⚡</h2>
+            <div class="slider-container">
+                <input type="range" id="mood-slider" min="1" max="5" value="1" oninput="updateMood(this.value)">
+            </div>
+            <div class="mood-emoji" id="mood-emoji">🌧️</div>
+            <p id="mood-text" style="margin-top: 10px; font-weight: bold; color: var(--accent-pink);">Feeling a bit down...</p>
+        </section>
+    </div>
+
+    <!-- Modal Popup -->
+    <div id="cozy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCozyModal()">&times;</span>
+            <h3 id="modal-title" style="color: var(--accent-pink); margin-bottom: 15px;"></h3>
+            <p id="modal-body" style="line-height: 1.6; color: #555;"></p>
+            <button class="btn" style="margin-top: 20px; padding: 8px 20px;" onclick="closeCozyModal()">Feeling Warm 💛</button>
+        </div>
+    </div>
+
+    <script>
+ /* Web Audio API Audio Synthesizer */
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioCtx();
+            }
+        }
+
+        function playChime(freq = 523.25, type = 'sine', duration = 0.5) {
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) { console.log(e); }
+        }
+
+        function playPopSound() {
+            playChime(600, 'triangle', 0.15);
+        }
+
+        function playSparkleSound() {
+            playChime(880, 'sine', 0.3);
+            setTimeout(() => playChime(1046.50, 'sine', 0.4), 100);
+        }
+
+        /* Particle Canvas System */
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 8 + 4;
+                this.speedX = (Math.random() - 0.5) * 6;
+                this.speedY = (Math.random() - 0.5) * 6 - 2;
+                this.color = color;
+                this.opacity = 1;
+                this.gravity = 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.speedY += this.gravity;
+                this.opacity -= 0.02;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.opacity);
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function triggerConfetti(x = window.innerWidth / 2, y = window.innerHeight / 2) {
+            const colors = ['#ff758c', '#ffb7b2', '#ffdac1', '#e2f0cb', '#b5ead7', '#c7ceea'];
+            for (let i = 0; i < 40; i++) {
+                particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].opacity <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        /* Sunshine Notes Generator */
+        const notes = [
+            "Jidnyasa, you are allowed to take things one small step at a time today. 🌿",
+            "Remember that even the cloudy days are just brief pauses before bright sunshine! ☀️",
+            "Sending you the biggest, warmest virtual hug right now! 🤗",
+            "You are doing so much better than you think you are. Be gentle with yourself. 💖",
+            "Whatever is on your mind, you have the strength to navigate through it. 💪",
+            "Don't forget to take a deep breath, sip some water, and relax your shoulders. ✨",
+            "The world is undeniably brighter with you in it, Jidnyasa! 🌸"
+        ];
+
+        function dispenseNote() {
+            const noteDisplay = document.getElementById('note-display');
+            const randomNote = notes[Math.floor(Math.random() * notes.length)];
+            noteDisplay.style.opacity = 0;
+            playSparkleSound();
+            triggerConfetti();
+            
+            setTimeout(() => {
+                noteDisplay.innerText = randomNote;
+                noteDisplay.style.opacity = 1;
+            }, 200);
+        }
+
+        /* Sad Clouds Mini-Game */
+        const cloudEmojis = ['🌧️', '⛈️', '☁️', '💨'];
+        
+        function createClouds() {
+            const container = document.getElementById('cloud-container');
+            container.innerHTML = '';
+            for (let i = 0; i < 6; i++) {
+                const cloud = document.createElement('div');
+                cloud.className = 'cloud';
+                cloud.innerText = cloudEmojis[i % cloudEmojis.length];
+                cloud.onclick = function(e) {
+                    if (!cloud.classList.contains('popped')) {
+                        cloud.classList.add('popped');
+                        playPopSound();
+                        triggerConfetti(e.clientX, e.clientY);
+                    }
+                };
+                container.appendChild(cloud);
+            }
+        }
+        function resetClouds() {
+            playSparkleSound();
+            createClouds();
+        }
+        createClouds();
+
+        /* 3D Secret Flip Cards */
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+            playChime(700, 'sine', 0.2);
+        }
+
+        /* Mood Meter Slider */
+        const moodData = [
+            { emoji: '🌧️', text: 'Feeling a bit down...', color: '#5d4a66' },
+            { emoji: '⛅', text: 'Getting a little light...', color: '#776d8a' },
+            { emoji: '🌤️', text: 'Warming up nicely!', color: '#ffb7b2' },
+            { emoji: '☀️', text: 'Feeling bright and hopeful!', color: '#ff758c' },
+            { emoji: '🌈✨', text: '100% Supercharged Sunshine!', color: '#ff6f91' }
+        ];
+
+        function updateMood(val) {
+            const data = moodData[val - 1];
+            const emojiEl = document.getElementById('mood-emoji');
+            const textEl = document.getElementById('mood-text');
+            
+            emojiEl.innerText = data.emoji;
+            emojiEl.style.transform = `scale(${1 + val * 0.1})`;
+            textEl.innerText = data.text;
+            textEl.style.color = data.color;
+
+            playChime(400 + val * 100, 'sine', 0.2);
+
+            if (val == 5) {
+                triggerConfetti();
+                playSparkleSound();
+            }
+        }
+
+        /* Emergency Cozy Kit Modal */
+        function openCozyModal(title, text) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerText = text;
+            document.getElementById('cozy-modal').style.display = 'flex';
+            playSparkleSound();
+            triggerConfetti();
+        }
+
+        function closeCozyModal() {
+            document.getElementById('cozy-modal').style.display = 'none';
+            playPopSound();
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('cozy-modal');
+            if (event.target == modal) {
+                closeCozyModal();
+            }
+        }
+    </script>
+</body>
+</html>
